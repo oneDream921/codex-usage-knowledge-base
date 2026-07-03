@@ -10,7 +10,29 @@
 
 ## 解决
 
-建议装在当前仓库的虚拟环境里：
+有两种安装方式。
+
+### 方式一：全局用户环境安装
+
+如果希望这个能力在多个项目、多个 Codex 沙箱中复用，可以装到当前用户的 Python 环境：
+
+```powershell
+python -m pip install --user paramiko
+```
+
+如果网络慢，可以使用镜像：
+
+```powershell
+python -m pip install --user -i https://pypi.tuna.tsinghua.edu.cn/simple paramiko
+```
+
+这种方式的好处是：以后 Codex 在其他仓库里也可以直接 `import paramiko`，不用每个项目都重新安装。
+
+需要注意的是：全局安装会共享同一份依赖版本。如果某个项目对依赖版本很敏感，还是建议使用下面的虚拟环境方式。
+
+### 方式二：当前仓库虚拟环境安装
+
+如果只想给当前仓库使用，可以装在当前仓库的虚拟环境里：
 
 ```powershell
 python -m venv .venv-paramiko
@@ -24,6 +46,15 @@ python -m venv .venv-paramiko
 import paramiko
 print("paramiko OK", paramiko.__version__)
 '@ | .\.venv-paramiko\Scripts\python.exe -
+```
+
+如果是全局用户环境安装，验证命令可以简化为：
+
+```powershell
+@'
+import paramiko
+print("paramiko OK", paramiko.__version__)
+'@ | python -
 ```
 
 然后把服务器信息告诉 Codex，例如：
