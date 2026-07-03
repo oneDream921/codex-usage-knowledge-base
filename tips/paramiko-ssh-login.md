@@ -1,8 +1,12 @@
 # 用 Paramiko 让 Codex 登录 VPS 执行命令
 
-用途：让 Codex 通过 Python 自动登录 VPS，执行远程命令、检查服务状态、下载验证文件。
+## 原因
 
-## 安装
+有些任务需要在 VPS 上反复执行命令，例如部署脚本、检查服务状态、查看端口监听、下载生成文件。
+
+如果全部人工操作，过程会很碎：复制命令、登录服务器、输入密码、粘贴输出、再让 Codex 判断下一步。使用 Paramiko 后，Codex 可以通过 Python 直接登录 VPS，自动执行命令并读取结果。
+
+## 解决
 
 建议装在当前仓库的虚拟环境里：
 
@@ -20,9 +24,7 @@ print("paramiko OK", paramiko.__version__)
 '@ | .\.venv-paramiko\Scripts\python.exe -
 ```
 
-## 给 Codex 的用法
-
-把服务器信息告诉 Codex，例如：
+然后把服务器信息告诉 Codex，例如：
 
 ```text
 服务器 IP: x.x.x.x
@@ -32,18 +34,7 @@ print("paramiko OK", paramiko.__version__)
 不要把密码写入仓库文件。
 ```
 
-Codex 可以用它做这些事：
-
-```text
-1. SSH 登录 VPS
-2. 执行远程命令
-3. 检查 systemctl 状态
-4. 检查端口监听
-5. 上传或下载文件
-6. 收集验证输出
-```
-
-## 最小 Python 示例
+最小 Python 示例：
 
 ```python
 import os
@@ -71,6 +62,21 @@ $env:VPS_PASSWORD='这里填本次密码'
 .\.venv-paramiko\Scripts\python.exe .\your-script.py
 Remove-Item Env:\VPS_PASSWORD
 ```
+
+## 效果
+
+Codex 可以自动完成这些工作：
+
+```text
+1. SSH 登录 VPS
+2. 执行远程命令
+3. 检查 systemctl 状态
+4. 检查端口监听
+5. 上传或下载文件
+6. 收集验证输出
+```
+
+实际效果是：服务器部署验证可以从“人工复制粘贴多轮输出”变成“Codex 自动跑完整流程并汇总结果”。
 
 ## 注意
 
