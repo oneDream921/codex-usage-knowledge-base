@@ -63,6 +63,8 @@ tips/paramiko-ssh-login.md
 - 客户端代理配置
 - 完整连接链接
 - 云厂商账号信息
+- 真实服务器 IP、域名、端口、UUID
+- 任何能直接登录、连接或定位个人服务的配置
 
 如果需要举例，用假值：
 
@@ -72,16 +74,39 @@ tips/paramiko-ssh-login.md
 密码: 只在当前任务中使用
 ```
 
+## 开源安全约束
+
+- 新增文件前先判断：这个文件公开到 GitHub 后，是否会暴露账号、服务器、网络配置或个人路径。
+- 命令示例可以写，但真实输出里如果包含 IP、域名、Token、UUID、用户名、绝对路径，要先脱敏。
+- 不提交 `.env`、私钥、证书、代理客户端配置、下载下来的服务器配置或临时验证脚本。
+- 如果某个技巧必须提到敏感字段，只写字段名和假值，不写真实值。
+- 如果不确定某段内容能不能开源，默认先不要提交。
+
 ## 提交前检查
+
+首次克隆仓库后，先安装本仓库的 Git hook：
+
+```powershell
+.\scripts\install-git-hooks.ps1
+```
+
+安装后，每次 `git commit` 会自动运行基础格式检查和敏感信息检查。
 
 提交前至少检查：
 
 ```powershell
 git status --short
 git diff --check
+.\scripts\check-sensitive.ps1
 ```
 
 确认没有把敏感文件、临时文件、虚拟环境提交进去。
+
+如果已经 `git add` 了文件，提交前再检查暂存区：
+
+```powershell
+.\scripts\check-sensitive.ps1 -StagedOnly
+```
 
 ## 当前已采用的技巧格式
 

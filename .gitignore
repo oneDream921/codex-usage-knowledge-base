@@ -4,7 +4,24 @@
 *.tmp
 __pycache__/
 .venv/
+.venv-*/
 .idea/
 .DS_Store
 Thumbs.db
 
+# Local secrets and downloaded client configs
+*.pem
+*.key
+*.p12
+*.pfx
+*.ovpn
+id_rsa
+id_ed25519
+known_hosts
+*clash*.yaml
+*clash*.yml
+*mihomo*.yaml
+*mihomo*.yml
+*v2ray*.json
+*xray*.json
+*sing-box*.json
