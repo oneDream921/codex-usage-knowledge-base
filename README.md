@@ -22,4 +22,5 @@
 ## 技巧列表
 
 - [用 Paramiko 让 Codex 登录 VPS 执行命令](tips/paramiko-ssh-login.md)
+- [用 Wrangler CLI 让 Codex 部署 Cloudflare Pages](tips/cloudflare-pages-wrangler-deploy.md)
 - [用 PowerShell Profile 固定 UTF-8 编码](tips/powershell-utf8-profile.md)
